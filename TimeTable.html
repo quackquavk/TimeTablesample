@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-container input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .input-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .input-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .class-list {
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    display: none;
+  }
+  
+  .class-list p {
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+  footer{
+    text-align: center;
+  }
+  </style>
+  
+  <title>Class Timetable</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Class Timetable</h1>
+        <div class="input-container">
+          <input type="text" id="inputDay" placeholder="Enter a day (e.g., Monday)">
+          <button id="showclasses">Show classes</button>
+        </div>
+        <div id="classesList" class="classes-list">
+          <!-- classes will be displayed here using JavaScript -->
+        </div>
+      </div>
+      
+  <script>
+  const timetable = {
+    Sunday: ["RKpr or PBpr", "PS", "KB", "PB", "SB", "BPP", "JR", "BSB"],
+    Monday: ["DRG", "RK", "KB", "SRG", "MK", "BPP", "BPP", "PP"],
+    Tuesday: ["DRG", "RK", "PP", "SRG", "SB", "NBK", "PS", "BSB"],
+    Wednesday: ["DRG", "RK", "KB", "PB", "YNT", "NBK", "SB", "PP"],
+    Thursday: ["PBpr or BPPpr", "MK", "KB", "BPP", "YNT", "NBK", "PS", "JR"],
+    Friday: ["HDpr or SBpr", "MK", "KB", "PB", "PP", "NBK", "YNT"],
+};
+
+     
+      
+      
+    
+      function getclassesForDay(day) {
+        const classes = timetable[day];
+      
+        if (classes) {
+          return classes;
+        } else {
+          return ["No classeses scheduled for this day."];
+        }
+      }
+      
+    
+      
+      document.addEventListener("DOMContentLoaded", function() {
+        const showclassesButton = document.getElementById("showclasses");
+        const inputDay = document.getElementById("inputDay");
+        const classesList = document.getElementById("classesList");
+      
+        showclassesButton.addEventListener("click", function() {
+          const day = inputDay.value.charAt(0).toUpperCase() + inputDay.value.slice(1).toLowerCase();
+          const classes = getclassesForDay(day);
+      
+          if (classesList.style.display === "none") {
+            classesList.style.display = "block";
+          }
+      
+          classesList.innerHTML = `<h3>${day} classes:</h3>`;
+          classes.forEach((period, index) => {
+            const periodNumber = index + 1;
+            classesList.innerHTML += `<p>${periodNumber}. ${period}</p>`;
+          });
+        });
+      });
+      </script>
+</body>
+<footer>
+    <p>&copy; 2023 Puks. All rights reserved.</p>
+</footer>
+</html>
